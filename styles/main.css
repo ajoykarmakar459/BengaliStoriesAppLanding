@@ -980,6 +980,7 @@ a.story:hover {
 
 .story .text_wrapper {
     color: #fff;
+    text-align: left;
 }
 
 .story .text_wrapper h4 {

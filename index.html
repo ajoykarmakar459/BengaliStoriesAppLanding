@@ -1,123 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154162713-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="plyr.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<!--<div id="player" data-plyr-provider="youtube" data-plyr-embed-id="9MUQGykHrX8" data-plyr-autoplay="1"></div>-->
+
+<script src="plyr.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // This is the bare minimum JavaScript. You can opt to pass no arguments to setup.
+        function parseURLParams(url) {
+            let queryStart = url.indexOf("?") + 1,
+                queryEnd = url.indexOf("#") + 1 || url.length + 1,
+                query = url.slice(queryStart, queryEnd - 1),
+                pairs = query.replace(/\+/g, " ").split("&"),
+                parms = {},
+                i, n, v, nv;
+
+            if (query === url || query === "") return;
+
+            for (i = 0; i < pairs.length; i++) {
+                nv = pairs[i].split("=", 2);
+                n = decodeURIComponent(nv[0]);
+                v = decodeURIComponent(nv[1]);
+
+                if (!parms.hasOwnProperty(n)) parms[n] = [];
+                parms[n].push(nv.length === 2 ? v : null);
+            }
+            return parms;
         }
 
-        gtag('js', new Date());
+        const urlParams = parseURLParams(window.location.href);
+        videoID = urlParams.v[0];
+        const daString = "<div id=\"player\" data-plyr-provider=\"youtube\" data-plyr-embed-id=" + videoID + "></div>";
+        const daParent = document.getElementsByTagName('body')[0];
+        daParent.innerHTML = daString;
 
-        gtag('config', 'UA-154162713-1');
-    </script>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Sunday Suspense App</title>
-    <meta name="description"
-          content="From this app you can listen and download all Sunday Suspense stories from bengalistories. We have total collection of the sunday suspense.">
+        const player = new Plyr('#player');
+        // Expose
+        window.player = player;
 
-    <meta name="author" content="Bengali Stories">
-    <meta name="keywords"
-          content="sunday suspense,	sunday suspense download,sunday suspense download soundsip,	sunday suspense app, sunday suspense android app, sunday suspense free apk,	sunday suspense download apk, sunday suspense free android app, 	sunday suspense feluda,	sunday suspense byomkesh,	sunday suspense recent stories">
-    <link href="http://app.bengalistories.in" rel="canonical">
+        // Bind event listener
+        function on(selector, type, callback) {
+            document.querySelector(selector).addEventListener(type, callback, false);
+        }
 
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='styles/main.css'>
-    <link rel="stylesheet" href="scripts/aos/aos.css"/>
-    <link href="assets/icon/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
-    <link href="assets/icon/apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60">
-    <link href="assets/icon/apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
-    <link href="assets/icon/apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76">
-    <link href="assets/icon/apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
-    <link href="assets/icon/apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120">
-    <link href="assets/icon/apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144">
-    <link href="assets/icon/apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152">
-    <link href="assets/icon/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="assets/icon/android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png">
-    <link href="assets/icon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
-    <link href="assets/icon/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
-    <link href="assets/icon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
-    <link href="assets/icon/favicon.ico" rel="icon" type="image/x-icon">
-</head>
-<body>
-<div class="container">
-
-    <div id="hero">
-        <div id="main-image" style="float: left; max-width: min-content">
-            <img id="main-image" src="assets/images/phone.svg" style="margin-right: 0">
-
-            <div id="movie-data" data-scroller="true" data-prevent-mouse-scroll="true"></div>
-
-        </div>
-        <div id="text">
-            <img id="logo" alt="bengaliStories"
-                 src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMxaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzA2NyA3OS4xNTc3NDcsIDIwMTUvMDMvMzAtMjM6NDA6NDIgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA4MkNBMTgzNDM1MzExRTk5ODAyQTU4QjcwMUIyOTRFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA4MkNBMTg0NDM1MzExRTk5ODAyQTU4QjcwMUIyOTRFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDgyQ0ExODE0MzUzMTFFOTk4MDJBNThCNzAxQjI5NEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDgyQ0ExODI0MzUzMTFFOTk4MDJBNThCNzAxQjI5NEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYF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">
-            <h1>BengaliStories - Sunday Suspense App</h1>
-            <p>From this app you can listen and download all Sunday Suspense stories from bengalistories. We have total
-                collection of the sunday suspense.</p>
-            <div id="buttons">
-                <a id="download" target="_blank"
-                   href="https://play.google.com/store/apps/details?id=app.bengalistories.in"> <img
-                        src="assets/vectors/download.svg"> <br>Size: 9-10 mb </a>
-                <a id="play-video" href="http://bengalistories.in" target="_blank">
-                    <img src="assets/vectors/play.svg">
-                    Listen online</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="awards">
-        <div onclick="window.open('https://play.google.com/store/apps/details?id=app.bengalistories.in', '_blank');"
-             id="product-hunt"><img src="assets/vectors/product-hunt.svg"></div>
-        <div id="apple"
-             onclick="window.open('https://play.google.com/store/apps/details?id=app.bengalistories.in', '_blank');">
-            <img src="assets/vectors/apple.svg">
-        </div>
-    </div>
-
-    <div id="footer">
-        <div id="links">
-            <p>Made with <span style="color: red">❤</span></p>
-            <div>
-                <a href="http://bengalistories.in" target="_blank">Bengali Stories</a>
-                <a href="https://www.facebook.com/OfficialBengaliStories" target="_blank">Facebook Page</a>
-                <a href="https://twitter.com/StoriesBengali" target="_blank">Twitter</a>
-                <a onclick="showContactDetails()">Contact</a>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<script src="scripts/aos/aos.js"></script>
-<script src="scripts/aos/init.js"></script>
-<script src="scripts/app/jquery.js"></script>
-<script src="scripts/app/scroller.js" async="async"></script>
-<script>
-    function init() {
-        var html = '';
-        $.ajax({
-            dataType: "json",
-            url: "http://w7b.fae.myftpupload.com/api/wp-json/acf/v3/posts/?page=1&per_page=20",
-            success: function (data) {
-                for (var key in data) {
-                    var value = data[key];
-                    html += '<a class="story" target="_blank" href="https://play.google.com/store/apps/details?id=app.bengalistories.in"><img src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABkAAD/4QMvaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjUtYzAyMSA3OS4xNTU3NzIsIDIwMTQvMDEvMTMtMTk6NDQ6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE0IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozNEJFN0IwODE4ODUxMUVBQTc4MEQ0ODdDMUQxMUM3NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozNEJFN0IwOTE4ODUxMUVBQTc4MEQ0ODdDMUQxMUM3NyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM0QkU3QjA2MTg4NTExRUFBNzgwRDQ4N0MxRDExQzc3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjM0QkU3QjA3MTg4NTExRUFBNzgwRDQ4N0MxRDExQzc3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/+4ADkFkb2JlAGTAAAAAAf/bAIQAAQEBAQEBAQEBAQEBAQEB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\n" alt=' + value.acf.story_name + '/><div class="text_wrapper"><h4>' + value.acf.story_name + '</h4>' +
-                        '<p>' + value.acf.story_writer + '</p>' +
-                        '<p>' + value.acf.story_time + ' Min</p></div></a>'
-                }
-                $("#movie-data").append(html);
-            }
+        // Play
+        on('.js-play', 'click', () => {
+            player.play();
         });
-        $('.movie-data').perfectScrollbar();
-    }
-    init();
-</script>
 
+        // Pause
+        on('.js-pause', 'click', () => {
+            player.pause();
+        });
+
+        // Stop
+        on('.js-stop', 'click', () => {
+            player.stop();
+        });
+
+        // Rewind
+        on('.js-rewind', 'click', () => {
+            player.rewind();
+        });
+
+        // Forward
+        on('.js-forward', 'click', () => {
+            player.forward();
+        });
+
+    });
+</script>
 </body>
+
 </html>

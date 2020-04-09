@@ -44,9 +44,13 @@
 
         const player = new Plyr('#player');
 
-        player.on('play', (data) => window.postMessage("play"));
-        player.on('pause', (data) => window.postMessage("pause"));
+        player.on('play', (data) => postMSG("play"));
+        player.on('pause', (data) => postMSG("pause"));
     });
+
+    function postMSG(v) {
+        window.postMessage(v);
+    }
 
 </script>
 </body>

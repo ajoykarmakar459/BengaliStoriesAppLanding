@@ -35,48 +35,13 @@
             }
             return parms;
         }
-
         const urlParams = parseURLParams(window.location.href);
         videoID = urlParams.v[0];
         const daString = "<div id=\"player\" data-plyr-provider=\"youtube\" data-plyr-embed-id=" + videoID + "></div>";
         const daParent = document.getElementsByTagName('body')[0];
         daParent.innerHTML = daString;
-
         const player = new Plyr('#player');
-        // Expose
-        window.player = player;
-
-        // // Bind event listener
-        // function on(selector, type, callback) {
-        //     document.querySelector(selector).addEventListener(type, callback, false);
-        // }
-        //
-        // // Play
-        // on('.js-play', 'click', () => {
-        //     player.play();
-        // });
-        //
-        // // Pause
-        // on('.js-pause', 'click', () => {
-        //     player.pause();
-        // });
-        //
-        // // Stop
-        // on('.js-stop', 'click', () => {
-        //     player.stop();
-        // });
-        //
-        // // Rewind
-        // on('.js-rewind', 'click', () => {
-        //     player.rewind();
-        // });
-        //
-        // // Forward
-        // on('.js-forward', 'click', () => {
-        //     player.forward();
-        // });
-
-    });
+      });
 </script>
 </body>
 

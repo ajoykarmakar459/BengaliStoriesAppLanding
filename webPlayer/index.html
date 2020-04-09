@@ -35,12 +35,19 @@
             }
             return parms;
         }
+
         const urlParams = parseURLParams(window.location.href);
         videoID = urlParams.v[0];
         const daString = "<div id=\"player\" data-plyr-provider=\"youtube\" data-plyr-embed-id=" + videoID + "></div>";
         const daParent = document.getElementsByTagName('body')[0];
         daParent.innerHTML = daString;
-      });
+
+        const player = new Plyr('#player');
+
+        player.on('play', (data) => window.postMessage("play"));
+        player.on('pause', (data) => window.postMessage("pause"));
+    });
+
 </script>
 </body>
 

@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="plyr.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<head><meta charset="UTF-8"><title>Bengali Stories</title><link rel="stylesheet" href="plyr.css"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 
 <body>
 <!--<div id="player" data-plyr-provider="youtube" data-plyr-embed-id="9MUQGykHrX8" data-plyr-autoplay="1"></div>-->
@@ -44,14 +38,9 @@
 
         const player = new Plyr('#player');
 
-        player.on('play', (data) => postMSG("play"));
-        player.on('pause', (data) => postMSG("pause"));
+        player.on('play', (data) => console.log('play'));
+        player.on('pause', (data) => console.log('pause'));
     });
-
-    function postMSG(v) {
-        window.postMessage(v);
-    }
-
 </script>
 </body>
 

@@ -1,5 +1,64 @@
-<audio controls loop autoplay>
-  <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
-  <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Bengali Stories</title><link rel="stylesheet" href="plyr.css"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+
+<body>
+<!--<div id="player" data-plyr-provider="youtube" data-plyr-embed-id="9MUQGykHrX8" data-plyr-autoplay="1"></div>-->
+
+<script src="plyr.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // This is the bare minimum JavaScript. You can opt to pass no arguments to setup.
+        function parseURLParams(url) {
+            let queryStart = url.indexOf("?") + 1,
+                queryEnd = url.indexOf("#") + 1 || url.length + 1,
+                query = url.slice(queryStart, queryEnd - 1),
+                pairs = query.replace(/\+/g, " ").split("&"),
+                parms = {},
+                i, n, v, nv;
+
+            if (query === url || query === "") return;
+
+            for (i = 0; i < pairs.length; i++) {
+                nv = pairs[i].split("=", 2);
+                n = decodeURIComponent(nv[0]);
+                v = decodeURIComponent(nv[1]);
+
+                if (!parms.hasOwnProperty(n)) parms[n] = [];
+                parms[n].push(nv.length === 2 ? v : null);
+            }
+            return parms;
+        }
+
+        const urlParams = parseURLParams(window.location.href);
+        videoID = urlParams.v[0];
+        const daString = "<div id=\"player\" data-plyr-provider=\"youtube\" data-plyr-embed-id=" + videoID + "></div> <div id='loader_id' class=\"loader\"></div>";
+        const daParent = document.getElementsByTagName('body')[0];
+        daParent.innerHTML = daString;
+
+        const player = new Plyr('#player');
+
+        var loader = document.getElementById('loader_id');
+
+        player.on('play', (data) => console.log('play'));
+        player.on('pause', (data) => console.log('pause'));
+
+        player.on('ready', function(event) {
+            loader.style.display = 'none'
+            // player.play();
+        });
+
+        player.on('seeking', function(event) {
+            loader.style.display = 'block'
+        });
+
+        player.on('seeked', function(event) {
+            loader.style.display = 'none'
+            // player.play();
+        });
+
+    });
+</script>
+</body>
+
+</html>

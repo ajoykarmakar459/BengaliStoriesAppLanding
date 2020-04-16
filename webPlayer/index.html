@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Bengali Stories</title><link rel="stylesheet" href="plyr.css"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Bengali Stories</title>
+    <link rel="stylesheet" href="plyr.css">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+</head>
 
 <body>
 <!--<div id="player" data-plyr-provider="youtube" data-plyr-embed-id="9MUQGykHrX8" data-plyr-autoplay="1"></div>-->
@@ -36,27 +41,33 @@
         const daParent = document.getElementsByTagName('body')[0];
         daParent.innerHTML = daString;
 
-        const player = new Plyr('#player');
+        const player = new Plyr('#player', {
+            quality: 240,
+            autoplay: true
+        });
 
         var loader = document.getElementById('loader_id');
 
         player.on('play', (data) => console.log('play'));
         player.on('pause', (data) => console.log('pause'));
 
-        player.on('ready', function(event) {
+        player.on('ready', function (event) {
             loader.style.display = 'none'
-            // player.play();
+            player.play();
         });
 
-        player.on('seeking', function(event) {
+        player.on('seeking', function (event) {
             loader.style.display = 'block'
         });
 
-        player.on('seeked', function(event) {
+        player.on('seeked', function (event) {
             loader.style.display = 'none'
-            // player.play();
+            player.play();
         });
 
+        document.addEventListener("visibilitychange", function() {
+            player.play();
+        }, false);
     });
 </script>
 </body>

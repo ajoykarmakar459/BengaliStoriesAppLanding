@@ -5,14 +5,19 @@
     <title>Bengali Stories</title>
     <link rel="stylesheet" href="plyr.css">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
 </head>
 
 <body>
 <!--<div id="player" data-plyr-provider="youtube" data-plyr-embed-id="9MUQGykHrX8" data-plyr-autoplay="1"></div>-->
 
+<button class="play_pause" onclick="mediaplay()"><i class='ion-play'></i></button>
+<button class="play_pause" onclick="mediapause()"><i class='ion-pause'></i></button>
+<section></section>
+
 <script src="plyr.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    // document.addEventListener('DOMContentLoaded', () => {
         // This is the bare minimum JavaScript. You can opt to pass no arguments to setup.
         function parseURLParams(url) {
             let queryStart = url.indexOf("?") + 1,
@@ -38,7 +43,7 @@
         const urlParams = parseURLParams(window.location.href);
         videoID = urlParams.v[0];
         const daString = "<div id=\"player\" data-plyr-provider=\"youtube\" data-plyr-embed-id=" + videoID + "></div> <div id='loader_id' class=\"loader\"></div>";
-        const daParent = document.getElementsByTagName('body')[0];
+        const daParent = document.getElementsByTagName('section')[0];
         daParent.innerHTML = daString;
 
         const player = new Plyr('#player', {
@@ -68,7 +73,15 @@
         document.addEventListener("visibilitychange", function() {
             player.play();
         }, false);
-    });
+    // });
+
+    function mediaplay() {
+        player.play();
+    }
+
+    function mediapause() {
+        player.pause();
+    }
 </script>
 </body>
 

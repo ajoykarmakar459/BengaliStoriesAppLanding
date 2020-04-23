@@ -47,9 +47,10 @@
         });
 
         var loader = document.getElementById('loader_id');
+        var playingStatus = false;
 
-        player.on('play', (data) => console.log('play'));
-        player.on('pause', (data) => console.log('pause'));
+        player.on('play', (data) => playingStatus = true);
+        player.on('pause', (data) =>  playingStatus = false);
 
         player.on('ready', function (event) {
             loader.style.display = 'none'
@@ -57,7 +58,7 @@
         });
 
         player.on('seeking', function (event) {
-            loader.style.display = 'block'
+            loader.style.display = 'block';
         });
 
         player.on('seeked', function (event) {
@@ -66,7 +67,9 @@
         });
 
         document.addEventListener("visibilitychange", function() {
-            player.play();
+            if (playingStatus === true){
+                player.play();
+            }
         }, false);
     });
 </script>

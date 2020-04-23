@@ -1406,12 +1406,31 @@ a.plyr__control::after, a.plyr__control::before {
 .plyr__controls .plyr__controls__item:first-child {
     width: 72px;
     height: 72px;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    border-radius: 100%;
+    margin-right: 16px;
+    display: none;
+}
+
+.play_pause {
+    width: 72px;
+    height: 72px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: red;
     border-radius: 100%;
-    margin-right: 16px
+    margin-right: 16px;
+    border: 0;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+.play_pause:hover, .play_pause:focus {
+    background-color: #d53737;
 }
 
 .loader, .loader:after {

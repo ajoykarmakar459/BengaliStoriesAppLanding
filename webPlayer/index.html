@@ -37,7 +37,7 @@
 
         const urlParams = parseURLParams(window.location.href);
         videoID = urlParams.v[0];
-        const daString = "<input type="button" value="Click me" onclick="msg()"><div id=\"player\" data-plyr-provider=\"youtube\" data-plyr-embed-id=" + videoID + "></div> <div id='loader_id' class=\"loader\"></div>";
+        const daString = "<input type=\"button\" value=\"Click me\" onclick=\"msg()\"/><div id=\"player\" data-plyr-provider=\"youtube\" data-plyr-embed-id=" + videoID + "></div> <div id='loader_id' class=\"loader\"></div>";
         const daParent = document.getElementsByTagName('body')[0];
         daParent.innerHTML = daString;
 

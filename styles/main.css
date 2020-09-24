@@ -954,7 +954,7 @@ input[type='submit']:hover, input[type='button']:hover {
     left: 12px;
     right: 11px;
     bottom: 49px;
-    overflow: hidden;
+    overflow-y: auto;
     border-radius: 26px;
 }
 
@@ -1044,3 +1044,20 @@ a.story:hover {
     background-color: #000;
     opacity: 0.32;
 }
+
+
+/*used to determine the width of scroll bar*/
+::-webkit-scrollbar
+{width:5px;}
+
+/*where the draggable handle moves*/
+::-webkit-scrollbar-track
+{background:#212121;}
+
+/*defining the draggable handle*/
+::-webkit-scrollable-thumb
+{background:#f1f1f1; border-radius:2.5px}
+
+/*hovering over draggable handle*/
+::-webkit-scrollbar-thumb:hover
+{background:#555;}

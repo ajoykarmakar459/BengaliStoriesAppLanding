@@ -87,6 +87,31 @@
                 <a href="http://bengalistories.in" target="_blank">Bengali Stories</a>
                 <a href="https://www.facebook.com/OfficialBengaliStories" target="_blank">Facebook Page</a>
                 <a href="https://twitter.com/StoriesBengali" target="_blank">Twitter</a>
-                <a onclick="showContactDetails()">Contact</a>
             </div>
         </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="scripts/app/scroller.js"></script>
+<script>
+    function init() {
+        var html = '';
+        $.ajax({
+            dataType: "json",
+            url: "http://bengalistories.in/wp-json/acf/v3/posts/?page=1&per_page=30",
+            success: function (data) {
+                for (var key in data) {
+                    var value = data[key];
+                    html += '<a class="story" target="_blank" href="http://bengalistories.in/?page_id='+ value.id +'"><img src="https://bengalistories.in/wp-content/uploads/list_thumb.jpg" alt=' + value.acf.story_name + '/><div class="text_wrapper"><h4>' + value.acf.story_name + '</h4>' +
+                        '<p>' + value.acf.story_writer + '</p>' +
+                        '<p>' + value.acf.story_time + '</p></div></a>'
+                }
+                $("#movie-data").append(html);
+            }
+        });
+    }
+    init();
+</script>
+</body>
+</html>
